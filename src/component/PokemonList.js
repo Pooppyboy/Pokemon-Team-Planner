@@ -13,7 +13,7 @@ function PokemonList({pokemonList, setPokemonList, party, setParty}) {
                     axios.get(pokemon.url)
                         .then(url => {
                             // temp[url.data.id - 1] = url.data
-                            // setPokemonList(prevUrl => [...prevUrl, url.data])
+                            setPokemonList(prevUrl => [...prevUrl, url.data])
                         })
                 })
                 // setPokemonList(temp)

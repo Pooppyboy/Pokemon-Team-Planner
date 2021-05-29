@@ -15,7 +15,7 @@ function Party({party, setParty}) {
     return (
         <Row>
             {party.length > 0 ? party.map((pokemon, i) => (
-                <Col key={i + 1} md={6} onClick={() => removeFromParty(i, party, setParty)}>
+                <Col key={i + 1} className="mb-3" md={6} onClick={() => removeFromParty(i, party, setParty)}>
                 <span
                     className={`d-inline-block ${getType(pokemon.types)}`}
                     style={{
