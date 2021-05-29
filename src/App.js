@@ -8,13 +8,14 @@ import Navigation from "./component/Navigation";
 
 function App() {
     const [pokemonList, setPokemonList] = useState([])
+    const [party, setParty] = useState([])
 
   return (
       <BrowserRouter>
         <Navigation />
         <Switch>
           <Route exact path="/">
-            <Home pokemonList={pokemonList} setPokemonList={setPokemonList}/>
+            <Home pokemonList={pokemonList} setPokemonList={setPokemonList} party={party} setParty={setParty}/>
           </Route>
         </Switch>
       </BrowserRouter>

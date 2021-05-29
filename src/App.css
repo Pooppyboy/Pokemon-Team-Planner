@@ -38,3 +38,99 @@
     transform: rotate(360deg);
   }
 }
+
+.normal1{
+  background:#c6c6a7;
+  border-color:#6d6d4e
+}
+.grass1{
+  background:#a7db8d;
+  border-color:#4e8234
+}
+.fire1{
+  background:#f5ac78;
+  border-color:#9c531f
+}
+.water1{
+  background:#9db7f5;
+  border-color:#445e9c
+}
+.fighting1{
+  background:#d67873;
+  border-color:#7d1f1a
+}
+.flying1{
+  background:#c6b7f5;
+  border-color:#6d5e9c
+}
+.poison1{
+  background:#c183c1;
+  border-color:#682a68
+}
+.ground1{
+  background:#ebd69d;
+  border-color:#927d44
+}
+.rock1{
+  background:#d1c17d;
+  border-color:#786824
+}
+.bug1{
+  background:#c6d16e;
+  border-color:#6d7815
+}
+.ghost1{
+  background:#a292bc;
+  border-color:#493963
+}
+.electric1{
+  background:#fae078;
+  border-color:#a1871f
+}
+.psychic1{
+  background:#fa92b2;
+  border-color:#a13959
+}
+.ice1{
+  background:#bce6e6;
+  border-color:#638d8d
+}
+.dragon1{
+  background:#a27dfa;
+  border-color:#4924a1
+}
+.dark1{
+  background:#a29288;
+  border-color:#49392f
+}
+.steel1{
+  background:#d1d1e0;
+  border-color:#787887
+}
+.fairy1{
+  background:#f4bdc9;
+  border-color:#9b6470
+}
+.unknown,.unknown1{
+  background:#68a090;
+  border-color:#44685e
+}
+
+.normal2{border-color:#6d6d4e}
+.grass2{border-color:#4e8234}
+.fire2{border-color:#9c531f}
+.water2{border-color:#445e9c}
+.fighting2{border-color:#7d1f1a}
+.flying2{border-color:#6d5e9c}
+.poison2{border-color:#682a68}
+.ground2{border-color:#927d44}
+.rock2{border-color:#786824}
+.bug2{border-color:#6d7815}
+.ghost2{border-color:#493963}
+.electric2{border-color:#a1871f}
+.psychic2{border-color:#a13959}
+.ice2{border-color:#638d8d}
+.dragon2{border-color:#4924a1}
+.dark2{border-color:#49392f}
+.steel2{border-color:#787887}
+.fairy2{border-color:#9b6470}
