@@ -1,29 +1,34 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import {Container} from "react-bootstrap";
 
 function PokemonList({pokemonList, setPokemonList}) {
-    const [pokemonImages, setPokemonImages] = useState([])
 
     useEffect(() => {
-        axios.get('https://pokeapi.co/api/v2/pokemon/?limit=20')
+        axios.get('https://pokeapi.co/api/v2/pokemon/?limit=151')
             .then(response => {
-                response.data.results.forEach(pokemon => {
-                    setPokemonList(prevPokemon => ([...prevPokemon, pokemon.name]))
+                response.data.results.forEach(pokemon => (
                     axios.get(pokemon.url)
-                        .then(response => {
-                            setPokemonImages(prevImage => ([...prevImage, response.data.sprites.versions["generation-viii"].icons["front_default"]]))
-                        }).catch(error => console.error(error))
-                })
+                        .then(url => {
+                            setPokemonList(prevUrl => [...prevUrl, url.data])
+                        })
+                ))
             }).catch(error => console.error(error))
     }, [])
 
+    console.log(pokemonList)
 
     return (
-        <>
-            {pokemonImages.map((image, i) => (
-                <img key={i+1} src={image} />
-            ))}
-        </>
+        <Container className="mt-3 mb-4">
+            {pokemonList ? pokemonList.map(pokemon => (
+                //<span onClick={() => alert(pokemon.name)} className="d-inline-block m-1" style={{background: "rgba(255,255,255,0.3)", border: "5px solid rgba(255,255,255,0.5)", borderRadius: "10px"}}>
+                    <img onClick={() => alert(pokemon.name)}
+                        key={pokemon.id}
+                         src={pokemon.sprites.versions["generation-viii"].icons["front_default"]}
+                         alt={pokemon.name}
+                    />
+            )) : null}
+        </Container>
     );
 }
 

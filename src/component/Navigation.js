@@ -1,13 +1,15 @@
 import React from 'react';
-import {Navbar, Nav, NavDropdown, Form, FormControl, Button, Image} from "react-bootstrap";
+import {Navbar, Nav, NavDropdown, Form, FormControl, Button, Image, Col} from "react-bootstrap";
 import pokemonLogo from "../img/pokemon_logo.png"
 
 function Navigation(props) {
     return (
-        <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">
-                <Image src={pokemonLogo} alt="pokemon" fluid style={{width: "100px"}} className="d-inline align-middle"/>
-                <h3 className="d-inline font-weight-bolder text-secondary align-middle"> Team Planner</h3>
+        <Navbar bg="light" variant="light" expand="lg" className="py-0" style={{border: "5px solid #ebebeb", borderStyle: "outset"}}>
+            <Navbar.Brand href="#home" style={{fontFamily: "Odibee Sans", fontSize: "2rem"}}>
+                <Col >
+                <Image src={pokemonLogo} alt="pokemon" fluid style={{width: "100px"}} />
+                <div className="text-secondary" style={{fontSize: "24px"}}>Team Planner</div>
+                </Col>
                 </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
