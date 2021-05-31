@@ -4,19 +4,24 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Home from "./component/Home";
 import Navigation from "./component/Navigation";
+import PartyPage from "./component/PartyPage";
 
 
 function App() {
     const [pokemonList, setPokemonList] = useState([])
     const [party, setParty] = useState([])
+    const [generations, setGenerations] = useState([])
 
   return (
       <BrowserRouter>
-        <Navigation />
+        <Navigation generations={generations} setGenerations={setGenerations}/>
         <Switch>
           <Route exact path="/">
             <Home pokemonList={pokemonList} setPokemonList={setPokemonList} party={party} setParty={setParty}/>
           </Route>
+            <Route exact path="/party">
+                <PartyPage pokemonList={pokemonList} setPokemonList={setPokemonList} party={party} setParty={setParty}/>
+            </Route>
         </Switch>
       </BrowserRouter>
   );

@@ -1,27 +1,41 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import axios from "axios";
 import {Navbar, Nav, NavDropdown, Form, FormControl, Button, Image, Col} from "react-bootstrap";
-import pokemonLogo from "../img/pokemon_logo.png"
+import {NavLink} from "react-router-dom"
+import pokemonLogo from "../assets/img/pokemon_logo.png"
 
-function Navigation(props) {
+function Navigation({generations, setGenerations}) {
+
+    useEffect(() => {
+        axios.get("https://pokeapi.co/api/v2/generation/")
+            .then(generations => {
+                setGenerations(generations.data.results)
+            })
+    })
+
     return (
-        <Navbar bg="light" variant="light" expand="lg" className="py-0" style={{border: "5px solid #ebebeb", borderStyle: "outset"}}>
-            <Navbar.Brand href="#home" style={{fontFamily: "Odibee Sans", fontSize: "2rem"}}>
-                <Col >
+        <Navbar bg="light" variant="light" expand="lg" className="py-0" style={{
+            border: "5px solid #ebebeb",
+            borderStyle: "outset",
+            fontFamily: "Pokemon"
+        }}>
+            <NavLink to="/">
+                <Navbar.Brand>
+                <Col className="d-flex flex-column align-items-center">
                 <Image src={pokemonLogo} alt="pokemon" fluid style={{width: "100px"}} />
-                <div className="text-secondary" style={{fontSize: "24px"}}>Team Planner</div>
+                <div className="text-secondary" style={{fontSize: "16px"}}>Team Planner</div>
                 </Col>
                 </Navbar.Brand>
+            </NavLink>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#link">Link</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                    <NavLink to="/party" className="nav-link"><Button>Party</Button></NavLink>
+                    <NavDropdown title="Generations" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#action/3.1">Select All</NavDropdown.Item>
+                        {generations ? generations.map(generation => (
+                            <NavDropdown.Item href="#">{generation.name}</NavDropdown.Item>
+                        )): null}
                     </NavDropdown>
                 </Nav>
                 <Form inline>
