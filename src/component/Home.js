@@ -3,17 +3,19 @@ import {Col, Container, Image, Row} from "react-bootstrap";
 import PokemonList from "./PokemonList";
 import boxTitleBackground from "../assets/img/box_title_background.png"
 import PartyList from "./PartyList";
+import EdgeShadows from "../lib/EdgeShadows";
 
-function Home({pokemonList, setPokemonList, party, setParty}) {
+function Home({pokemonList, setPokemonList, party, setParty, setSelectedPokemon}) {
     return (
         <>
-            <Row className="mx-0" style={{
-                width: "100%",
-                position: "relative",
-                background: "#e0e8e8",
-            }}>
+            <Row className="mx-0"
+                 style={{
+                     width: "100%",
+                     position: "relative",
+                     background: "#e0e8e8",
+                 }}>
                 {/* PC Box */}
-                <Col md={8}
+                <Col md={9}
                      className="d-inline-block pb-3"
                      style={{
                          borderBottomRightRadius: "2%",
@@ -54,13 +56,14 @@ function Home({pokemonList, setPokemonList, party, setParty}) {
                         </Container>
                     </Row>
                     {/* Pokemon List */}
-                    <Row className="m-3" style={{
-                        background: "#7df58d",
-                        border: '10px solid #ad7b3e',
-                        borderRadius: "5px",
-                        borderStyle: "outset",
+                    <Row className="m-3"
+                         style={{
+                             background: "#7df58d",
+                             border: '10px solid #ad7b3e',
+                             borderRadius: "5px",
+                             borderStyle: "outset",
 
-                    }}>
+                         }}>
                         <span className="d-inline-block"
                               style={{
                                   border: "10px solid #96ffa4",
@@ -72,34 +75,10 @@ function Home({pokemonList, setPokemonList, party, setParty}) {
                         </span>
                     </Row>
                 </Col>
-                <Col md={4} className="px-0">
-                    <PartyList party={party} setParty={setParty}/>
+                <Col md={3} className="px-0">
+                    <PartyList party={party} setParty={setParty} setSelectedPokemon={setSelectedPokemon}/>
                 </Col>
-                {/* Edge shadows*/}
-                <span style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    boxShadow: "inset -10px -10px 0px 10px rgba(0, 0, 0, 0.2)",
-                    backgroundColor: "transparent",
-                    zIndex: 1,
-                    pointerEvents: "none",
-                }}>
-                </span>
-                <span style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    boxShadow: "inset -15px -15px 0px 15px rgba(0, 0, 0, 0.1)",
-                    backgroundColor: "transparent",
-                    zIndex: 1,
-                    pointerEvents: "none",
-                }}>
-            </span>
+                <EdgeShadows/>
             </Row>
         </>
     );

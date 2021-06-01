@@ -1,8 +1,8 @@
 import React from 'react';
 import {Container, Col, Row} from "react-bootstrap";
-import {removeFromParty} from "../lib/helpers";
+import {removeFromParty, selectPokemon} from "../lib/helpers";
 
-function PartyList({party, setParty}) {
+function PartyList({party, setParty, setSelectedPokemon}) {
 
     function getType(pokemonType) {
         let types = ""
@@ -17,6 +17,7 @@ function PartyList({party, setParty}) {
             <Row style={{
                 backgroundColor: "transparent",
                 height: "3%",
+                width: "100%",
             }}>
 
             </Row>
@@ -44,7 +45,8 @@ function PartyList({party, setParty}) {
                     <Col key={i + 1}
                          md={6}
                          className="mb-3 text-center"
-                         onClick={() => removeFromParty(i, party, setParty)}>
+                         onClick={() => selectPokemon(pokemon, setSelectedPokemon)}>
+
                         <Container style={{
                             width: "100%",
                             border: "5px solid #3b433d",
@@ -53,6 +55,11 @@ function PartyList({party, setParty}) {
                                 " inset 0px -10px 0px 3px rgba(0, 0, 0, 0.2)",
                             backgroundColor: "#e1e0df",
                         }}>
+                            <Container
+                                style={{
+
+                                }}
+                                onClick={() => removeFromParty(i, party, setParty)}>-</Container>
                             <img style={{
                                 width: "70%",
                             }}
