@@ -4,12 +4,16 @@ export function addToParty(pokemon, party, setParty) {
     }
 }
 
-export function removeFromParty(index, party, setParty) {
+export function removeFromParty(index, party, setParty, selectedPokemon, setSelectedPokemon) {
+    if (selectedPokemon === party[index]) {
+        setSelectedPokemon([])
+    }
     let temp = [...party]
     temp.splice(index, 1)
     setParty(temp)
 }
 
-export function selectPokemon(pokemon, setSelectedPokemon) {
-    setSelectedPokemon(pokemon)
+export function selectPokemon(pokemon, i, selectedPokemon, setSelectedPokemon) {
+    if(selectedPokemon === pokemon) setSelectedPokemon("")
+    else setSelectedPokemon([pokemon, i])
 }

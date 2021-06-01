@@ -17,7 +17,8 @@ function Navigation({generations, setGenerations}) {
         <Navbar bg="light" variant="light" expand="lg" className="py-0" style={{
             border: "5px solid #ebebeb",
             borderStyle: "outset",
-            fontFamily: "Pokemon"
+            fontFamily: "Pokemon",
+            zIndex: 3,
         }}>
             <NavLink to="/">
                 <Navbar.Brand>

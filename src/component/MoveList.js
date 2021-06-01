@@ -2,13 +2,22 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {Col, Container, Row, Dropdown, DropdownButton} from "react-bootstrap";
 
-function MoveList({selectedPokemon}) {
+function MoveList({selectedPokemon, party}) {
     const [moveList, setMoveList] = useState([])
-    const [moveSet, setMoveSet] = useState([{}, {}, {}, {}])
+    const [moveSets, setMoveSets] = useState(
+        [
+            [{}, {}, {}, {}],
+            [{}, {}, {}, {}],
+            [{}, {}, {}, {}],
+            [{}, {}, {}, {}],
+            [{}, {}, {}, {}],
+            [{}, {}, {}, {}]
+        ]
+    )
 
     useEffect(() => {
-        if (selectedPokemon) {
-            let moveListPromiseArrays = selectedPokemon.moves.map(moves => (
+        if (selectedPokemon.length > 0) {
+            let moveListPromiseArrays = selectedPokemon[0].moves.map(moves => (
                 axios.get(moves.move.url)
             ))
             Promise.all(moveListPromiseArrays).then(response => {
@@ -16,12 +25,16 @@ function MoveList({selectedPokemon}) {
                 setMoveList(temp)
             });
         }
+        else {
+            setMoveList([])
+        }
     }, [selectedPokemon])
 
+
     function assignMove(move, i) {
-        let temp = [...moveSet]
-        temp[i] = move
-        setMoveSet(temp)
+        let temp = [...moveSets]
+        temp[selectedPokemon[1]][i] = move
+        setMoveSets(temp)
     }
 
     return (
@@ -29,9 +42,8 @@ function MoveList({selectedPokemon}) {
              className="d-inline-block pb-3"
              style={{
                  position: "relative",
-                 borderBottomRightRadius: "2%",
-                 borderBottom: "5px solid #463d41",
-                 borderRight: "5px solid #463d41",
+                 borderRadius: "2%",
+                 border: "5px solid #463d41",
                  boxShadow: "inset -3px -3px 0px 3px rgba(0, 0, 0, 0.1)",
                  backgroundColor: "#f35f56",
                  height: "90%",
@@ -50,7 +62,7 @@ function MoveList({selectedPokemon}) {
                            fontFamily: "Pokemon",
                        }}>
                 {/* Move set*/}
-                {moveSet.map((move, i) => (
+                {selectedPokemon.length > 0 ? moveSets[selectedPokemon[1]].map((move, i) => (
                     <Row className="mx-0"
                          style={{
                              height: "25%",
@@ -114,7 +126,7 @@ function MoveList({selectedPokemon}) {
                                 <Col md={3}>
                                     <Row className="mt-1 justify-content-around"
                                          style={{height: "50%"}}>
-                                        {moveSet.map((move, pos) => (
+                                        {moveSets[selectedPokemon[1]].map((move, pos) => (
                                             (pos === i ?
                                                 <Col md={5} className="px-0">
                                                     <Container style={{
@@ -148,7 +160,7 @@ function MoveList({selectedPokemon}) {
                             </Row>
                         </Col>
                     </Row>
-                ))}
+                )): null}
             </Container>
 
         </Col>

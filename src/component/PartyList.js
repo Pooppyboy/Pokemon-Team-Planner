@@ -2,15 +2,15 @@ import React from 'react';
 import {Container, Col, Row} from "react-bootstrap";
 import {removeFromParty, selectPokemon} from "../lib/helpers";
 
-function PartyList({party, setParty, setSelectedPokemon}) {
+function PartyList({party, setParty, selectedPokemon, setSelectedPokemon}) {
 
-    function getType(pokemonType) {
-        let types = ""
-        pokemonType.map(type => (
-            types += `${type.type.name}${type.slot} `
-        ))
-        return `${types}`
-    }
+    // function getType(pokemonType) {
+    //     let types = ""
+    //     pokemonType.map(type => (
+    //         types += `${type.type.name}${type.slot} `
+    //     ))
+    //     return `${types}`
+    // }
 
     return (
         <>
@@ -28,9 +28,9 @@ function PartyList({party, setParty, setSelectedPokemon}) {
                 borderTop: "7px solid #637787",
                 borderBottom: "7px solid #637787",
             }}>
-                <p className="pt-4 pl-4 pb-3 m-0" style={{
+                <p className="pt-2 pl-4 m-0" style={{
                     fontFamily: "Pokemon",
-                    fontSize: "36px",
+                    fontSize: "5vh",
                     color: "white",
                     textShadow: "2px 2px #665f5b",
                 }}>
@@ -45,7 +45,7 @@ function PartyList({party, setParty, setSelectedPokemon}) {
                     <Col key={i + 1}
                          md={6}
                          className="mb-3 text-center"
-                         onClick={() => selectPokemon(pokemon, setSelectedPokemon)}>
+                         onClick={() => selectPokemon(pokemon, i, selectedPokemon, setSelectedPokemon)}>
 
                         <Container style={{
                             width: "100%",
@@ -59,7 +59,7 @@ function PartyList({party, setParty, setSelectedPokemon}) {
                                 style={{
 
                                 }}
-                                onClick={() => removeFromParty(i, party, setParty)}>-</Container>
+                                onClick={() => removeFromParty(i, party, setParty, selectedPokemon, setSelectedPokemon)}>-</Container>
                             <img style={{
                                 width: "70%",
                             }}

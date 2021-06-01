@@ -5,7 +5,7 @@ import boxTitleBackground from "../assets/img/box_title_background.png"
 import PartyList from "./PartyList";
 import EdgeShadows from "../lib/EdgeShadows";
 
-function Home({pokemonList, setPokemonList, party, setParty, setSelectedPokemon}) {
+function Home({pokemonList, setPokemonList, party, setParty, selectedPokemon, setSelectedPokemon}) {
     return (
         <>
             <Row className="mx-0"
@@ -76,7 +76,7 @@ function Home({pokemonList, setPokemonList, party, setParty, setSelectedPokemon}
                     </Row>
                 </Col>
                 <Col md={3} className="px-0">
-                    <PartyList party={party} setParty={setParty} setSelectedPokemon={setSelectedPokemon}/>
+                    <PartyList party={party} setParty={setParty} selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon}/>
                 </Col>
                 <EdgeShadows/>
             </Row>
