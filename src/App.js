@@ -12,25 +12,49 @@ function App() {
     const [party, setParty] = useState([])
     const [generations, setGenerations] = useState([])
     const [selectedPokemon, setSelectedPokemon] = useState([])
+    const [partyLevels, setPartyLevels] = useState([])
+    const [partyAbilities, setPartyAbilities] = useState([])
+    const [partyMoveSets, setPartyMoveSets] = useState(
+        [
+            [{}, {}, {}, {}],
+            [{}, {}, {}, {}],
+            [{}, {}, {}, {}],
+            [{}, {}, {}, {}],
+            [{}, {}, {}, {}],
+            [{}, {}, {}, {}]
+        ]
+    )
 
-  return (
-      <BrowserRouter>
-        <Navigation generations={generations} setGenerations={setGenerations}/>
-        <Switch>
-          <Route exact path="/">
-            <Home pokemonList={pokemonList} setPokemonList={setPokemonList} party={party} setParty={setParty} selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon}/>
-          </Route>
-            <Route exact path="/party">
-                <PartyPage pokemonList={pokemonList}
-                           setPokemonList={setPokemonList}
-                           party={party}
-                           setParty={setParty}
-                           selectedPokemon={selectedPokemon}
-                           setSelectedPokemon={setSelectedPokemon}/>
-            </Route>
-        </Switch>
-      </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Navigation generations={generations} setGenerations={setGenerations}/>
+            <Switch>
+                <Route exact path="/">
+                    <Home pokemonList={pokemonList}
+                          setPokemonList={setPokemonList}
+                          party={party}
+                          setParty={setParty}
+                          selectedPokemon={selectedPokemon}
+                          setSelectedPokemon={setSelectedPokemon}/>
+                </Route>
+                <Route exact path="/party">
+                    <PartyPage pokemonList={pokemonList}
+                               setPokemonList={setPokemonList}
+                               party={party}
+                               setParty={setParty}
+                               selectedPokemon={selectedPokemon}
+                               setSelectedPokemon={setSelectedPokemon}
+                               partyMoveSets={partyMoveSets}
+                               setPartyMoveSets={setPartyMoveSets}
+                               partyLevels={partyLevels}
+                               setPartyLevels={setPartyLevels}
+                               partyAbilities={partyAbilities}
+                               setPartyAbilities={setPartyAbilities}
+                    />
+                </Route>
+            </Switch>
+        </BrowserRouter>
+    );
 }
 
 export default App;

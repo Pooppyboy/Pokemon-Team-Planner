@@ -17,3 +17,15 @@ export function selectPokemon(pokemon, i, selectedPokemon, setSelectedPokemon) {
     if(selectedPokemon[1] === i) setSelectedPokemon([])
     else setSelectedPokemon([pokemon, i])
 }
+
+export function assignMove(move, i, selectedPokemon, partyMoveSets, setPartyMoveSets) {
+    let temp = [...partyMoveSets]
+    temp[selectedPokemon[1]][i] = move
+    setPartyMoveSets(temp)
+}
+
+export function assignAbility(ability, selectedPokemon, partyAbilities, setPartyAbilities) {
+    let temp = [...partyAbilities]
+    temp[selectedPokemon[1]] = ability
+    setPartyAbilities(temp)
+}

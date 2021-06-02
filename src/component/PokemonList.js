@@ -5,7 +5,7 @@ import {addToParty} from "../lib/helpers";
 function PokemonList({pokemonList, setPokemonList, party, setParty}) {
 
     useEffect(() => {
-        axios.get('https://pokeapi.co/api/v2/pokemon/?limit=251')
+        axios.get('https://pokeapi.co/api/v2/pokemon/?limit=151')
             .then(response => {
                let promiseArray = response.data.results.map(pokemon => (
                     axios.get(pokemon.url)
@@ -15,7 +15,7 @@ function PokemonList({pokemonList, setPokemonList, party, setParty}) {
                     setPokemonList(temp)
                 });
             }).catch(error => console.error(error))
-    }, [])
+    }, [setPokemonList])
 
 
     return (

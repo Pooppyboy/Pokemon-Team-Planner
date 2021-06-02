@@ -1,19 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {Col, Container, Row, Dropdown, DropdownButton} from "react-bootstrap";
+import {assignMove} from "../lib/helpers";
 
-function MoveList({selectedPokemon, party}) {
+function MoveList({selectedPokemon, partyMoveSets, setPartyMoveSets}) {
     const [moveList, setMoveList] = useState([])
-    const [moveSets, setMoveSets] = useState(
-        [
-            [{}, {}, {}, {}],
-            [{}, {}, {}, {}],
-            [{}, {}, {}, {}],
-            [{}, {}, {}, {}],
-            [{}, {}, {}, {}],
-            [{}, {}, {}, {}]
-        ]
-    )
 
     useEffect(() => {
         if (selectedPokemon.length > 0) {
@@ -24,18 +15,8 @@ function MoveList({selectedPokemon, party}) {
                 let temp = response.map(pokemon => pokemon.data)
                 setMoveList(temp)
             });
-        }
-        else {
-            setMoveList([])
-        }
+        } else setMoveList([]);
     }, [selectedPokemon])
-
-
-    function assignMove(move, i) {
-        let temp = [...moveSets]
-        temp[selectedPokemon[1]][i] = move
-        setMoveSets(temp)
-    }
 
     return (
         <Col md={3}
@@ -62,8 +43,9 @@ function MoveList({selectedPokemon, party}) {
                            fontFamily: "Pokemon",
                        }}>
                 {/* Move set*/}
-                {selectedPokemon.length > 0 ? moveSets[selectedPokemon[1]].map((move, i) => (
+                {selectedPokemon.length > 0 ? partyMoveSets[selectedPokemon[1]].map((move, i) => (
                     <Row className="mx-0"
+                         key={selectedPokemon[0].name + "move" + i}
                          style={{
                              height: "25%",
                              width: "100%",
@@ -90,7 +72,7 @@ function MoveList({selectedPokemon, party}) {
                                 </Col>
                                 {/* Move Name */}
                                 <Col md={7} style={{fontSize: "2vh"}}>
-                                    {Object.keys(move).length !== 0 ? move.names.map(moveName => (
+                                    {Object.keys(move).length > 0 ? move.names.map(moveName => (
                                         (moveName.language.name === "en") ? moveName.name : null
                                     )) : ""}
                                 </Col>
@@ -106,9 +88,9 @@ function MoveList({selectedPokemon, party}) {
                                     >
                                         {moveList ? moveList.map((move, j) => (
                                             <Dropdown.Item eventKey={j + 1}
-                                                           key={move.name}
+                                                           key={j + ":" + move.name}
                                                            onSelect={() => {
-                                                               assignMove(move, i)
+                                                               assignMove(move, i, selectedPokemon, partyMoveSets, setPartyMoveSets)
                                                            }}
                                             >
                                                 {moveList ? move.names.map(moveName => (
@@ -126,9 +108,11 @@ function MoveList({selectedPokemon, party}) {
                                 <Col md={3}>
                                     <Row className="mt-1 justify-content-around"
                                          style={{height: "50%"}}>
-                                        {moveSets[selectedPokemon[1]].map((move, pos) => (
-                                            (pos === i ?
-                                                <Col md={5} className="px-0">
+                                        {partyMoveSets[selectedPokemon[1]].map((move, pos) => (
+                                            pos === i ?
+                                                <Col md={5}
+                                                     key={"pos" + pos}
+                                                     className="px-0">
                                                     <Container style={{
                                                         height: "80%",
                                                         borderRadius: "5px",
@@ -137,7 +121,9 @@ function MoveList({selectedPokemon, party}) {
                                                     }}>
                                                     </Container>
                                                 </Col>
-                                                : <Col md={5} className="px-0">
+                                                : <Col md={5}
+                                                       key={"pos" + pos}
+                                                       className="px-0">
                                                     <Container style={{
                                                         height: "80%",
                                                         borderRadius: "5px",
@@ -145,7 +131,7 @@ function MoveList({selectedPokemon, party}) {
                                                         backgroundColor: "#c3d4de",
                                                     }}>
                                                     </Container>
-                                                </Col>)
+                                                </Col>
                                         ))}
                                     </Row>
                                 </Col>
@@ -162,7 +148,6 @@ function MoveList({selectedPokemon, party}) {
                     </Row>
                 )): null}
             </Container>
-
         </Col>
     );
 }

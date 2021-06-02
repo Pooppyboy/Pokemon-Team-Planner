@@ -1,12 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Dropdown, DropdownButton, Row} from "react-bootstrap";
+import MoveList from "./MoveList";
 import PartyList from "./PartyList";
 import EdgeShadows from "../lib/EdgeShadows";
-import MoveList from "./MoveList";
 import pokeball from "../assets/img/pokeball.png"
+import pokeballGIF from "../assets/img/GenerousTimelyBrontosaurus-max-1mb.gif"
+import {assignAbility} from "../lib/helpers";
+import axios from "axios";
 
-function PartyPage({pokemonList, setPokemonList, party, setParty, selectedPokemon, setSelectedPokemon}) {
+function PartyPage({
+                       party,
+                       setParty,
+                       selectedPokemon,
+                       setSelectedPokemon,
+                       partyMoveSets,
+                       setPartyMoveSets,
+                       partyAbilities,
+                       setPartyAbilities
+                   }) {
     const [partyStats, setPartyStats] = useState([])
+    const [abilityList, setAbilityList] = useState([])
 
     // For stat calculation
     const level = 100
@@ -21,7 +34,7 @@ function PartyPage({pokemonList, setPokemonList, party, setParty, selectedPokemo
         party.forEach((pokemon, i) => {
             tempPartyStats[i] = pokemon.stats.map(stat => {
                 // Stats calculation
-                if(stat.stat.name === "hp") {
+                if (stat.stat.name === "hp") {
                     tempStat = (((2 * stat["base_stat"] + IV + (EV / 4)) * level) / 100) + level + 10
                 } else {
                     tempStat = ((((2 * stat["base_stat"] + IV + (EV / 4)) * level) / 100) + 5) * nature
@@ -31,7 +44,20 @@ function PartyPage({pokemonList, setPokemonList, party, setParty, selectedPokemo
             })
         })
         setPartyStats(tempPartyStats)
-    },[party])
+    }, [party])
+
+    // Call ability APIs to store in list
+    useEffect(() => {
+        if(selectedPokemon.length > 0) {
+            let abilityListPromiseArrays = selectedPokemon[0].abilities.map(ability => (
+                axios.get(ability.ability.url)
+            ))
+            Promise.all(abilityListPromiseArrays).then(response => {
+                let temp = response.map(ability => ability.data)
+                setAbilityList(temp)
+            });
+        }
+    },[selectedPokemon])
 
     return (
         <>
@@ -40,6 +66,7 @@ function PartyPage({pokemonList, setPokemonList, party, setParty, selectedPokemo
                 width: "100%",
                 height: "88vh",
                 background: "#e0e8e8",
+                fontFamily: "Pokemon",
             }}>
                 {/* Stats Summary */}
                 <Col md={3} className="d-inline-block px-0 position-relative">
@@ -57,7 +84,7 @@ function PartyPage({pokemonList, setPokemonList, party, setParty, selectedPokemo
                          }}>
                     </Row>
                     {/* Overall Red Container */}
-                    <Container className="mx-0 position-absolute"
+                    <Container className="mx-0 px-0 position-absolute"
                                style={{
                                    bottom: 0,
                                    borderTopRightRadius: "10px",
@@ -69,55 +96,129 @@ function PartyPage({pokemonList, setPokemonList, party, setParty, selectedPokemo
                                    zIndex: 2,
                                }}>
                         {/* Stat Summary box */}
-                            <Container className="px-0 mx-0 position-absolute"
-                                       style={{
-                                           top: "10px",
-                                           right: "10px",
-                                           borderRadius: "10px",
-                                           border: "5px solid #463d41",
-                                           backgroundColor: "#607986",
-                                           height: "60%",
-                                           width: "90%",
-                                           zIndex: 2,
-                                           fontFamily: "Pokemon",
-                                           fontSize: "2vh",
-                                           textShadow: "1px 1px #665f5b",
-                                       }}>
-                                {/* Individual stat boxes*/}
-                                {partyStats[selectedPokemon[1]] ? partyStats[selectedPokemon[1]].map(pokemonStats => (
-                                    <Row className="mx-0"
+                        <Container className="px-0 mx-0 position-absolute"
+                                   style={{
+                                       top: "10px",
+                                       right: "10px",
+                                       borderRadius: "10px",
+                                       border: "5px solid #463d41",
+                                       backgroundColor: "#607986",
+                                       height: "60%",
+                                       width: "90%",
+                                       zIndex: 2,
+                                       fontSize: "2vh",
+                                       textShadow: "1px 1px #665f5b",
+                                   }}>
+                            {/* Individual stat boxes*/}
+                            {partyStats[selectedPokemon[1]] ? partyStats[selectedPokemon[1]].map(pokemonStat => (
+                                <Row className="mx-0"
+                                     key={pokemonStat.name}
+                                     style={{
+                                         height: `${100 / 6}%`,
+                                         border: "2px solid #607986",
+                                         borderRadius: "5px",
+                                     }}>
+                                    {/* Name of Stat*/}
+                                    <Col md={5}
+                                         className="text-center"
                                          style={{
-                                             height: `${100/6}%`,
-                                             border: "2px solid #607986",
-                                             borderRadius: "5px",
+                                             backgroundColor: "#77889b",
+                                             borderRight: "4px solid #aab6c2",
+                                             borderTopLeftRadius: "5px",
+                                             borderBottomLeftRadius: "5px",
+                                             color: "white",
                                          }}>
-                                        {/* Name of Stat*/}
-                                        <Col md={5}
-                                             className="text-center"
-                                             style={{
-                                                 backgroundColor: "#77889b",
-                                                 borderRight: "4px solid #aab6c2",
-                                                 borderTopLeftRadius: "5px",
-                                                 borderBottomLeftRadius: "5px",
-                                                 color: "white",
-                                             }}>
-                                            {pokemonStats.name === "hp" && "HP"}
-                                            {pokemonStats.name === "special-attack" && "Sp.Atk"}
-                                            {pokemonStats.name === "special-defense" && "Sp.Def"}
-                                            {(pokemonStats.name === "attack" || pokemonStats.name === "defense" || pokemonStats.name === "speed") && pokemonStats.name[0].toUpperCase() + pokemonStats.name.slice(1)}
-                                        </Col>
-                                        {/* Stat points */}
-                                        <Col md={7}
-                                             style={{
-                                                 backgroundColor: "#c8d1d8",
-                                                 borderTopRightRadius: "5px",
-                                                 borderBottomRightRadius: "5px",
-                                             }}>
-                                            {pokemonStats.stat}/{pokemonStats.stat}
-                                        </Col>
-                                    </Row>
+                                        {pokemonStat.name === "hp" && "HP"}
+                                        {pokemonStat.name === "special-attack" && "Sp.Atk"}
+                                        {pokemonStat.name === "special-defense" && "Sp.Def"}
+                                        {(pokemonStat.name === "attack" || pokemonStat.name === "defense" || pokemonStat.name === "speed") && pokemonStat.name[0].toUpperCase() + pokemonStat.name.slice(1)}
+                                    </Col>
+                                    {/* Stat points */}
+                                    <Col md={7}
+                                         style={{
+                                             backgroundColor: "#c8d1d8",
+                                             borderTopRightRadius: "5px",
+                                             borderBottomRightRadius: "5px",
+                                         }}>
+                                        {pokemonStat.stat}/{pokemonStat.stat}
+                                    </Col>
+                                </Row>
+                            )) : null}
+                        </Container>
+                        {/* Ability */}
+                        <Row className="mx-0 position-absolute"
+                             style={{
+                                 bottom: "5%",
+                                 height: "30%",
+                                 width: "100%",
+                                 borderTop: "5px solid #463d41",
+                                 borderBottom: "5px solid #463d41",
+                                 fontSize: "1.5vh",
+                                 textShadow: "1px 1px #665f5b",
+                             }}>
+                            {/* Ability name */}
+                            <Row className="mx-auto"
+                                 style={{
+                                     height: "33%",
+                                     width: "100%",
+                                     borderBottom: "5px solid #aab6c2",
+                                 }}>
+                                <Col md={4}
+                                     className="my-0 pt-4"
+                                     style={{
+                                         backgroundColor: "#77889b",
+                                         borderRight: "5px solid #aab6c2",
+                                         color: "white",
+                                     }}>
+                                    <span>Ability</span>
+                                </Col>
+                                <Col md={6}
+                                     className="my-0 pt-4"
+                                     style={{
+                                         backgroundColor: "#c8d1d8",
+                                     }}>
+                                    {partyAbilities[selectedPokemon[1]] ? partyAbilities[selectedPokemon[1]].names.map(abilityName => (
+                                        (abilityName.language.name === "en") && abilityName.name
+                                    )): null}
+                                </Col>
+                                <Col md={2}
+                                    style={{
+                                    backgroundColor: "#c8d1d8",
+                                }}>
+                                    <DropdownButton
+                                        menuAlign="right"
+                                        title=""
+                                        variant="secondary"
+                                        size="sm"
+                                        id="dropdown-menu-align-right"
+                                        className="mt-1"
+                                    >
+                                        {selectedPokemon.length > 0 ? abilityList.map((ability, i) => (
+                                            <Dropdown.Item eventKey={i + 1}
+                                                           key={i + ":" + ability.name}
+                                                           onSelect={() => {
+                                                               assignAbility(ability, selectedPokemon, partyAbilities, setPartyAbilities)}}>
+                                                {abilityList.length > 0 ? ability.names.map(abilityName => (
+                                                    (abilityName.language.name === "en") ? abilityName.name : null
+                                                )): null}
+                                            </Dropdown.Item>
+                                        )) : null}
+                                    </DropdownButton>
+                                </Col>
+                            </Row>
+                            <Row className="mx-auto my-auto px-3"
+                                 style={{
+                                     height: "67%",
+                                     width: "100%",
+                                     backgroundColor: "#c8d1d8",
+                                     alignItems: "center",
+                                 }}>
+                                {partyAbilities[selectedPokemon[1]] ? partyAbilities[selectedPokemon[1]]["effect_entries"].map(effectDescription => (
+                                    (effectDescription.language.name === "en") && effectDescription["short_effect"]
                                 )): null}
-                            </Container>
+                            </Row>
+                        </Row>
+
                     </Container>
                 </Col>
                 {/*  Pokemon Image & Skill */}
@@ -187,13 +288,13 @@ function PartyPage({pokemonList, setPokemonList, party, setParty, selectedPokemo
                     </Row>
                     {/* Artwork */}
                     <Row style={{height: "50%"}}>
-                        {selectedPokemon.length > 0
-                            ? <img src={selectedPokemon[0].sprites.other["official-artwork"]["front_default"]}
-                                   alt={selectedPokemon[0].name}
-                                   className="mx-auto"
-                                   style={{width: "80%"}}
+                        {selectedPokemon.length > 0 ?
+                            <img src={selectedPokemon[0].sprites.other["official-artwork"]["front_default"]}
+                                 alt={selectedPokemon[0].name}
+                                 className="mx-auto"
+                                 style={{width: "80%"}}
                             />
-                            : null}
+                            : <img src={pokeballGIF} className="m-auto" alt="loading"/>}
                     </Row>
                     {/* Move Desc */}
                     <Row className="mx-auto mt-2"
@@ -241,7 +342,8 @@ function PartyPage({pokemonList, setPokemonList, party, setParty, selectedPokemo
 
                 </Col>
                 {/* Move List */}
-                <MoveList selectedPokemon={selectedPokemon} party={party}/>
+                <MoveList selectedPokemon={selectedPokemon} party={party} partyMoveSets={partyMoveSets}
+                          setPartyMoveSets={setPartyMoveSets}/>
                 {/* Party List */}
                 <Col md={3} className="px-0">
                     <PartyList party={party}
