@@ -4,14 +4,6 @@ import {removeFromParty, selectPokemon} from "../lib/helpers";
 
 function PartyList({party, setParty, selectedPokemon, setSelectedPokemon}) {
 
-    // function getType(pokemonType) {
-    //     let types = ""
-    //     pokemonType.map(type => (
-    //         types += `${type.type.name}${type.slot} `
-    //     ))
-    //     return `${types}`
-    // }
-
     return (
         <>
             <Row style={{
@@ -44,7 +36,8 @@ function PartyList({party, setParty, selectedPokemon, setSelectedPokemon}) {
                 {party.length > 0 ? party.map((pokemon, i) => (
                     <Col key={i + 1}
                          md={6}
-                         className="mb-3 text-center"
+                         className="mb-3 text-center position-relative"
+                         style={{zIndex: 2}}
                          onClick={() => selectPokemon(pokemon, i, selectedPokemon, setSelectedPokemon)}>
 
                         <Container style={{
@@ -56,9 +49,6 @@ function PartyList({party, setParty, selectedPokemon, setSelectedPokemon}) {
                             backgroundColor: "#e1e0df",
                         }}>
                             <Container
-                                style={{
-
-                                }}
                                 onClick={() => removeFromParty(i, party, setParty, selectedPokemon, setSelectedPokemon)}>-</Container>
                             <img style={{
                                 width: "70%",

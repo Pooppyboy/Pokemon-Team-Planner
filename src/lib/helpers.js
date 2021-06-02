@@ -14,6 +14,6 @@ export function removeFromParty(index, party, setParty, selectedPokemon, setSele
 }
 
 export function selectPokemon(pokemon, i, selectedPokemon, setSelectedPokemon) {
-    if(selectedPokemon === pokemon) setSelectedPokemon("")
+    if(selectedPokemon[1] === i) setSelectedPokemon([])
     else setSelectedPokemon([pokemon, i])
 }
