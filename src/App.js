@@ -2,9 +2,9 @@ import './App.css';
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter, Switch, Route} from "react-router-dom";
-import Home from "./component/Home";
-import Navigation from "./component/Navigation";
-import PartyPage from "./component/PartyPage";
+import Home from "./components/Home";
+import Navigation from "./components/Navigation";
+import PartyPage from "./components/PartyPage";
 
 
 function App() {
@@ -12,7 +12,6 @@ function App() {
     const [party, setParty] = useState([])
     const [generations, setGenerations] = useState([])
     const [selectedPokemon, setSelectedPokemon] = useState([])
-    const [partyLevels, setPartyLevels] = useState([])
     const [partyAbilities, setPartyAbilities] = useState([])
     const [partyMoveSets, setPartyMoveSets] = useState(
         [
@@ -46,8 +45,6 @@ function App() {
                                setSelectedPokemon={setSelectedPokemon}
                                partyMoveSets={partyMoveSets}
                                setPartyMoveSets={setPartyMoveSets}
-                               partyLevels={partyLevels}
-                               setPartyLevels={setPartyLevels}
                                partyAbilities={partyAbilities}
                                setPartyAbilities={setPartyAbilities}
                     />

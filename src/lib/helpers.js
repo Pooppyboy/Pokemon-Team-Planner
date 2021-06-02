@@ -4,7 +4,8 @@ export function addToParty(pokemon, party, setParty) {
     }
 }
 
-export function removeFromParty(index, party, setParty, selectedPokemon, setSelectedPokemon) {
+export function removeFromParty(index, party, setParty, selectedPokemon, setSelectedPokemon, e) {
+    e.nativeEvent.stopImmediatePropagation()
     if (selectedPokemon === party[index]) {
         setSelectedPokemon([])
     }
@@ -13,7 +14,8 @@ export function removeFromParty(index, party, setParty, selectedPokemon, setSele
     setParty(temp)
 }
 
-export function selectPokemon(pokemon, i, selectedPokemon, setSelectedPokemon) {
+export function selectPokemon(pokemon, i, selectedPokemon, setSelectedPokemon, e) {
+    e.nativeEvent.stopImmediatePropagation()
     if(selectedPokemon[1] === i) setSelectedPokemon([])
     else setSelectedPokemon([pokemon, i])
 }

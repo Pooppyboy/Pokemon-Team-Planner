@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import axios from "axios";
-import {Navbar, Nav, NavDropdown, Form, FormControl, Button, Image, Col} from "react-bootstrap";
+import {Navbar, Nav, Image, Col} from "react-bootstrap";
 import {NavLink} from "react-router-dom"
 import pokemonLogo from "../assets/img/pokemon_logo.png"
 
@@ -31,18 +31,14 @@ function Navigation({generations, setGenerations}) {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <NavLink to="/party" className="nav-link"><Button variant="secondary">Party</Button></NavLink>
-                    <NavDropdown title="Generations" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Select All</NavDropdown.Item>
-                        {generations ? generations.map(generation => (
-                            <NavDropdown.Item key={generation.name} href="#">{generation.name}</NavDropdown.Item>
-                        )): null}
-                    </NavDropdown>
+                    <NavLink to="/party" className="nav-link">Party</NavLink>
+                    {/*<NavDropdown title="Generations" id="basic-nav-dropdown">*/}
+                    {/*    <NavDropdown.Item href="#action/3.1">Select All</NavDropdown.Item>*/}
+                    {/*    {generations ? generations.map(generation => (*/}
+                    {/*        <NavDropdown.Item key={generation.name} href="#">{generation.name}</NavDropdown.Item>*/}
+                    {/*    )): null}*/}
+                    {/*</NavDropdown>*/}
                 </Nav>
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-success">Search</Button>
-                </Form>
             </Navbar.Collapse>
         </Navbar>
     );

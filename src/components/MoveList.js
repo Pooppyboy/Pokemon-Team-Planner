@@ -23,8 +23,10 @@ function MoveList({selectedPokemon, partyMoveSets, setPartyMoveSets}) {
              className="d-inline-block pb-3"
              style={{
                  position: "relative",
-                 borderRadius: "2%",
+                 borderBottomLeftRadius: "2%",
+                 borderBottomRightRadius: "2%",
                  border: "5px solid #463d41",
+                 borderTop: "none",
                  boxShadow: "inset -3px -3px 0px 3px rgba(0, 0, 0, 0.1)",
                  backgroundColor: "#f35f56",
                  height: "90%",

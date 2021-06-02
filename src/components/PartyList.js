@@ -38,9 +38,10 @@ function PartyList({party, setParty, selectedPokemon, setSelectedPokemon}) {
                          md={6}
                          className="mb-3 text-center position-relative"
                          style={{zIndex: 2}}
-                         onClick={() => selectPokemon(pokemon, i, selectedPokemon, setSelectedPokemon)}>
+                         onClick={(e) => selectPokemon(pokemon, i, selectedPokemon, setSelectedPokemon, e)}>
 
-                        <Container style={{
+                        <Container className="position-relative"
+                                   style={{
                             width: "100%",
                             border: "5px solid #3b433d",
                             borderRadius: "10%",
@@ -49,9 +50,24 @@ function PartyList({party, setParty, selectedPokemon, setSelectedPokemon}) {
                             backgroundColor: "#e1e0df",
                         }}>
                             <Container
-                                onClick={() => removeFromParty(i, party, setParty, selectedPokemon, setSelectedPokemon)}>-</Container>
+                                className="d-flex m-0 p-0 position-absolute justify-content-center align-items-center"
+                                style={{
+                                    top: "5%",
+                                    right: "5%",
+                                    height: "15px",
+                                    width: "15px",
+                                    backgroundColor: "#a7a5a5",
+                                    fontFamily: "monospace",
+                                    border: "2px solid #797979",
+                                    borderRadius: "2px",
+                                    fontSize: "12px",
+                                    fontWeight: "bold",
+                                }}
+                                onClick={(e) => removeFromParty(i, party, setParty, selectedPokemon, setSelectedPokemon, e)}>
+                                x
+                            </Container>
                             <img style={{
-                                width: "70%",
+                                width: "80%",
                             }}
                                  src={pokemon.sprites["front_default"]}
                                  alt={pokemon.name}/>
