@@ -48,7 +48,7 @@ function PartyList({
                         <Container className="position-relative"
                                    style={{
                             width: "100%",
-                            border: pokemon.selected ? "5px solid #c51518" : "5px solid #3b433d",
+                            border: pokemon.selected ? "5px outset #ef6155" : "5px solid #3b433d",
                             borderRadius: "10%",
                             boxShadow: "inset 0px -10px 0px 0px rgba(0, 0, 0, 0.2)," +
                                 " inset 0px -10px 0px 3px rgba(0, 0, 0, 0.2)",

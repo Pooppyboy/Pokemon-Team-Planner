@@ -58,8 +58,6 @@ export function assignMove(move, i, party, setParty, selectedPokemon) {
     let tempParty = [...party]
     tempParty[selectedPokemon].moveSet[i] = move
     setParty(tempParty)
-    console.log(i)
-    console.log(party[selectedPokemon].moveSet)
 }
 
 export function assignAbility(ability, party, setParty, selectedPokemon) {

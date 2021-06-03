@@ -144,7 +144,7 @@ function StatsSummary({
                                     title=""
                                     variant="secondary"
                                     size="sm"
-                                    id="dropdown-menu-align-right"
+                                    id="moveList"
                                     className="mt-1"
                                 >
 

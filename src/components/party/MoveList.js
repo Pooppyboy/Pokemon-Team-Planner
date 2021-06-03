@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Col, Container, Row, Button, Modal} from "react-bootstrap";
+import {Col, Container, Row, Button, Modal, OverlayTrigger, Popover} from "react-bootstrap";
 import {assignMove} from "../../lib/helpers";
 
 function MoveList({
@@ -88,11 +88,12 @@ function MoveList({
                                     <button
                                         className="mt-2"
                                         style={{
-                                        backgroundColor: "lightgray",
-                                        border: "3px solid gray",
-                                        borderRadius: "5px",
-                                    }}
-                                            onClick={() => handleShow(i)}>
+                                            backgroundColor: "lightgray",
+                                            border: "3px solid gray",
+                                            borderRadius: "5px",
+                                            fontFamily: "Pokemon",
+                                        }}
+                                        onClick={() => handleShow(i)}>
                                         ^
                                     </button>
                                 </Col>
@@ -148,34 +149,202 @@ function MoveList({
                     </Row>
                 )) : null}
             </Container>
-            <Modal show={show} onHide={handleClose} size="xl">
-                <Modal.Header closeButton>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                size="xl"
+                scrollable={true}
+                style={{
+                    fontFamily: "Pokemon",
+                }}>
+                <Modal.Header
+                    closeButton
+                    style={{
+                        backgroundColor: "#f35f56",
+                        border: "5px solid #463d41",
+                        borderBottom: "none",
+                    }}>
                     <Modal.Title>Move List</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body style={{
+                    backgroundColor: "#c3d4de",
+                    borderLeft: "5px solid #463d41",
+                    borderRight: "5px solid #463d41",
+                    borderTop: "5px solid",
+                    borderBottom: "5px solid",
+                }}>
                     <Row>
                         {party[selectedPokemon] && party[selectedPokemon].moveList ? party[selectedPokemon].moveList.map((move, j) => (
-                            <button className={`mx-1 my-1 ${move.type.name}1`}
-                                    key={j + ":" + move.name}
-                                    style={{
-                                        borderStyle: "solid",
-                                        borderWidth: "3px",
-                                        borderRadius: "5px",
-                                    }}
-                                    onClick={(e) => {
-                                        assignMove(move, moveIndex, party, setParty, selectedPokemon)
-                                        handleClose()
-                                    }}
+                            <OverlayTrigger
+                                placement="auto-end"
+                                key={"modal" + move + j}
+                                // delay={{hide: 30000}}
+                                overlay={
+                                    <Popover id="popover-basic"
+                                             className=""
+                                             style={{
+                                                 backgroundColor: "#667887",
+                                                 fontFamily: "Pokemon",
+                                                 border: "3px solid black",
+                                                 borderRadius: "5px",
+                                             }}>
+                                        <Popover.Title as="h3"
+                                                       className="p-0 mx-0"
+                                                       style={{
+                                                           border: "2px solid #667887",
+                                                           fontFamily: "Pokemon",
+                                                       }}>
+                                            <Row className="mx-0 px-0"
+                                                 style={{
+                                                width: "100%",
+                                                fontFamily: "Pokemon",
+                                                     borderRadius: "10px",
+                                            }}>
+                                                <Col md={7}
+                                                     className="py-2 pl-2"
+                                                     style={{
+                                                         backgroundColor: "#798798",
+                                                     }}>
+                                                    TYPE
+                                                </Col>
+                                                <Col md={5}
+                                                     className="py-2 px-0 text-center"
+                                                     style={{
+                                                         backgroundColor: "#c8d0db",
+                                                     }}>
+                                                    <img
+                                                        src={require(`../../assets/typeLogos/${move.type.name}.png`).default}
+                                                        style={{width: "50%"}}
+                                                        alt={move.type.name}
+                                                    />
+                                                </Col>
+                                            </Row>
+                                        </Popover.Title>
+                                        <Popover.Title as="h3"
+                                                       className="p-0 mx-0"
+                                                       style={{
+                                                           border: "2px solid #667887",
+                                                           fontFamily: "Pokemon",
+                                                       }}>
+                                            <Row className="mx-0 px-0"
+                                                 style={{
+                                                     width: "100%",
+                                                     fontFamily: "Pokemon",
+                                                 }}>
+                                                <Col md={7}
+                                                     className="py-2 pl-2"
+                                                     style={{
+                                                         backgroundColor: "#798798",
+                                                     }}>
+                                                    CATEGORY
+                                                </Col>
+                                                <Col md={5}
+                                                     className="py-2 px-0 text-center"
+                                                     style={{
+                                                         backgroundColor: "#c8d0db",
+                                                     }}>
+                                                    <img
+                                                        src={require(`../../assets/typeLogos/${move["damage_class"].name}.png`).default}
+                                                        style={{width: "50%"}}
+                                                        alt={move.type.name}
+                                                    />
+                                                </Col>
+                                            </Row>
+                                        </Popover.Title>
+                                        <Popover.Title as="h3"
+                                                       className="p-0 mx-0"
+                                                       style={{
+                                                           border: "2px solid #667887",
+                                                           fontFamily: "Pokemon",
+                                                       }}>
+                                            <Row className="mx-0 px-0"
+                                                 style={{
+                                                     width: "100%",
+                                                     fontFamily: "Pokemon",
+                                                 }}>
+                                                <Col md={7}
+                                                     className="py-2 pl-2"
+                                                     style={{
+                                                         backgroundColor: "#798798",
+                                                     }}>
+                                                    POWER
+                                                </Col>
+                                                <Col md={5}
+                                                     className="py-2 px-0 text-center"
+                                                     style={{
+
+                                                         backgroundColor: "#c8d0db",
+                                                     }}>
+                                                    {move.power ? move.power : "-"}
+                                                </Col>
+                                            </Row>
+                                        </Popover.Title><Popover.Title as="h3"
+                                                                       className="p-0 mx-0"
+                                                                       style={{
+                                                                           border: "2px solid #667887",
+                                                                           fontFamily: "Pokemon",
+                                                                       }}>
+                                        <Row className="mx-0 px-0"
+                                             style={{
+                                                 width: "100%",
+                                                 fontFamily: "Pokemon",
+                                             }}>
+                                            <Col md={7}
+                                                 className="py-2 pl-2"
+                                                 style={{
+                                                     backgroundColor: "#798798",
+                                                 }}>
+                                                ACCURACY
+                                            </Col>
+                                            <Col md={5}
+                                                 className="py-2 px-0 text-center"
+                                                 style={{
+                                                     backgroundColor: "#c8d0db",
+                                                 }}>
+                                                {move.accuracy ? move.accuracy : "-"}
+                                            </Col>
+                                        </Row>
+                                    </Popover.Title>
+                                        <Popover.Content style={{
+                                            backgroundColor: "#e0e8e8",
+                                            border: "2px solid #667887",
+                                        }}>
+                                            {move["effect_entries"][0]["short_effect"].replace("$effect_chance", move["effect_chance"])}
+                                        </Popover.Content>
+                                    </Popover>
+                                }
                             >
-                                {party[selectedPokemon].moveList ? move.names.map(moveName => (
-                                    (moveName.language.name === "en") ? moveName.name : null
-                                )) : null}
-                            </button>
+                                <button className={`mx-1 my-1 ${move.type.name}1`}
+                                        key={j + ":" + move.name}
+                                        style={{
+                                            borderStyle: "solid",
+                                            borderWidth: "3px",
+                                            borderRadius: "5px",
+                                            fontFamily: "Pokemon",
+                                        }}
+                                        onClick={(e) => {
+                                            assignMove(move, moveIndex, party, setParty, selectedPokemon)
+                                            handleClose()
+                                        }}
+                                >
+                                    {party[selectedPokemon].moveList ? move.names.map(moveName => (
+                                        (moveName.language.name === "en") ? moveName.name : null
+                                    )) : null}
+                                </button>
+                            </OverlayTrigger>
                         )) : null}
                     </Row>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                <Modal.Footer style={{
+                    backgroundColor: "#f35f56",
+                    border: "5px solid #463d41",
+                    borderTop: "none",
+                }}>
+                    <Button variant="secondary"
+                            onClick={handleClose}
+                            style={{
+                                border: "3px solid #463d41",
+                            }}>
                         Close
                     </Button>
                 </Modal.Footer>

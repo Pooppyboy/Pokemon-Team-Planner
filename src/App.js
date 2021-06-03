@@ -77,10 +77,11 @@ function App() {
 
     return (
         <BrowserRouter>
-            <Navigation/>
+            <Navigation />
             <Switch>
                 <Route exact path="/">
-                    <Home pokemonList={pokemonList}
+                    <Home
+                        pokemonList={pokemonList}
                           setPokemonList={setPokemonList}
                           party={party}
                           setParty={setParty}
@@ -89,7 +90,8 @@ function App() {
                     />
                 </Route>
                 <Route exact path="/party">
-                    <PartyPage party={party}
+                    <PartyPage
+                        party={party}
                                setParty={setParty}
                                selectedPokemon={selectedPokemon}
                                setSelectedPokemon={setSelectedPokemon}
