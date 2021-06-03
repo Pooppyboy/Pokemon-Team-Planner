@@ -1,4 +1,5 @@
 # Pokemon Team Planner
+Link: https://pokemon-team-planner-battle.herokuapp.com/
 
 ### YOU DON'T GOTTA CATCH'EM ALL!
 ![screenshot](https://i.imgur.com/agmhmxS.png)
