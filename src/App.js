@@ -89,9 +89,7 @@ function App() {
                     />
                 </Route>
                 <Route exact path="/party">
-                    <PartyPage pokemonList={pokemonList}
-                               setPokemonList={setPokemonList}
-                               party={party}
+                    <PartyPage party={party}
                                setParty={setParty}
                                selectedPokemon={selectedPokemon}
                                setSelectedPokemon={setSelectedPokemon}

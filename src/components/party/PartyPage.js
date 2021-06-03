@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Col, Row, Form} from "react-bootstrap";
 import MoveList from "./MoveList";
 import PartyList from "../general/PartyList";
@@ -125,7 +125,7 @@ function PartyPage({
                                 src={party[selectedPokemon].pokemonAPI.sprites.other["official-artwork"]["front_default"]}
                                 alt={party[selectedPokemon].pokemonAPI.name}
                                 className="mx-auto"
-                                style={{ width: "80%"}}
+                                style={{width: "80%"}}
                             />
                             : <img src={pokeballGIF} className="m-auto" alt="loading"/>}
                     </Row>

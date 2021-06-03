@@ -3,7 +3,7 @@ import {Navbar, Nav, Image, Col} from "react-bootstrap";
 import {NavLink} from "react-router-dom"
 import pokemonLogo from "../../assets/img/pokemon_logo.png";
 
-function Navigation({generations, setGenerations}) {
+function Navigation() {
 
     // useEffect(() => {
     //     axios.get("https://pokeapi.co/api/v2/generation/")
