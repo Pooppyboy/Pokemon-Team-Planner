@@ -1,14 +1,13 @@
 import React from 'react';
 import {Col, Container, Dropdown, DropdownButton, Row} from "react-bootstrap";
-import {assignAbility} from "../lib/helpers";
+import {assignAbility} from "../../lib/helpers";
 
 function StatsSummary({
-                          partyStats,
+                          party,
+                          setParty,
                           selectedPokemon,
-                          partyAbilities,
-                          setPartyAbilities,
-                          abilityList
                       }) {
+
     return (
         <>
             {/* Red Banner */}
@@ -51,9 +50,13 @@ function StatsSummary({
                                textShadow: "1px 1px #665f5b",
                            }}>
                     {/* Individual stat boxes*/}
-                    {partyStats[selectedPokemon[1]] ? partyStats[selectedPokemon[1]].map(pokemonStat => (
+                    {(
+                        party[selectedPokemon] &&
+                        party[selectedPokemon].stats &&
+                        party[selectedPokemon].stats.length > 0
+                    ) ? party[selectedPokemon].stats.map((pokemonStat, i) => (
                         <Row className="mx-0"
-                             key={pokemonStat.name}
+                             key={"stat" + i}
                              style={{
                                  height: `${100 / 6}%`,
                                  border: "2px solid #607986",
@@ -69,10 +72,11 @@ function StatsSummary({
                                      borderBottomLeftRadius: "5px",
                                      color: "white",
                                  }}>
-                                {pokemonStat.name === "hp" && "HP"}
-                                {pokemonStat.name === "special-attack" && "Sp.Atk"}
-                                {pokemonStat.name === "special-defense" && "Sp.Def"}
-                                {(pokemonStat.name === "attack" || pokemonStat.name === "defense" || pokemonStat.name === "speed") && pokemonStat.name[0].toUpperCase() + pokemonStat.name.slice(1)}
+
+                                {Object.keys(pokemonStat)[0] === "hp" && "HP"}
+                                {Object.keys(pokemonStat)[0] === "special-attack" && "Sp.Atk"}
+                                {Object.keys(pokemonStat)[0] === "special-defense" && "Sp.Def"}
+                                {(Object.keys(pokemonStat)[0] === "attack" || Object.keys(pokemonStat)[0] === "defense" || Object.keys(pokemonStat)[0] === "speed") && Object.keys(pokemonStat)[0][0].toUpperCase() + Object.keys(pokemonStat)[0].slice(1)}
                             </Col>
                             {/* Stat points */}
                             <Col md={7}
@@ -81,7 +85,7 @@ function StatsSummary({
                                      borderTopRightRadius: "5px",
                                      borderBottomRightRadius: "5px",
                                  }}>
-                                {pokemonStat.stat}/{pokemonStat.stat}
+                                {pokemonStat[Object.keys(pokemonStat)[0]]}/{pokemonStat[Object.keys(pokemonStat)[0]]}
                             </Col>
                         </Row>
                     )) : null}
@@ -118,7 +122,12 @@ function StatsSummary({
                              style={{
                                  backgroundColor: "#c8d1d8",
                              }}>
-                            {partyAbilities[selectedPokemon[1]] ? partyAbilities[selectedPokemon[1]].names.map(abilityName => (
+                            {(
+                                party[selectedPokemon] &&
+                                party[selectedPokemon].ability &&
+                                party[selectedPokemon].ability.names &&
+                                party[selectedPokemon].ability.names.length > 0
+                            ) ? party[selectedPokemon].ability.names.map(abilityName => (
                                 (abilityName.language.name === "en") && abilityName.name
                             )) : null}
                         </Col>
@@ -134,13 +143,17 @@ function StatsSummary({
                                 id="dropdown-menu-align-right"
                                 className="mt-1"
                             >
-                                {selectedPokemon.length > 0 ? abilityList.map((ability, i) => (
+                                {(
+                                    party[selectedPokemon] &&
+                                    party[selectedPokemon].abilityList &&
+                                    party[selectedPokemon].abilityList.length > 0
+                                ) ? party[selectedPokemon].abilityList.map((ability, i) => (
                                     <Dropdown.Item eventKey={i + 1}
                                                    key={i + ":" + ability.name}
                                                    onSelect={() => {
-                                                       assignAbility(ability, selectedPokemon, partyAbilities, setPartyAbilities)
+                                                       assignAbility(ability, party, setParty, selectedPokemon)
                                                    }}>
-                                        {abilityList.length > 0 ? ability.names.map(abilityName => (
+                                        {party[selectedPokemon].abilityList.length > 0 ? ability.names.map(abilityName => (
                                             (abilityName.language.name === "en") ? abilityName.name : null
                                         )) : null}
                                     </Dropdown.Item>
@@ -155,7 +168,12 @@ function StatsSummary({
                              backgroundColor: "#c8d1d8",
                              alignItems: "center",
                          }}>
-                        {partyAbilities[selectedPokemon[1]] ? partyAbilities[selectedPokemon[1]]["effect_entries"].map(effectDescription => (
+                        {(
+                            party[selectedPokemon] &&
+                            party[selectedPokemon].ability &&
+                            party[selectedPokemon].ability["effect_entries"] &&
+                            party[selectedPokemon].ability["effect_entries"].length > 0
+                        ) ? party[selectedPokemon].ability["effect_entries"].map(effectDescription => (
                             (effectDescription.language.name === "en") && effectDescription["short_effect"]
                         )) : null}
                     </Row>

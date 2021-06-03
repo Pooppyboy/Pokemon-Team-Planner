@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Container, Image, Row} from "react-bootstrap";
 import PokemonList from "./PokemonList";
 import boxTitleBackground from "../assets/img/box_title_background.png"
-import PartyList from "./PartyList";
+import PartyList from "./general/PartyList";
 import EdgeShadows from "../lib/EdgeShadows";
 
 function Home({pokemonList, setPokemonList, party, setParty, selectedPokemon, setSelectedPokemon}) {

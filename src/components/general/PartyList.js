@@ -1,8 +1,13 @@
 import React from 'react';
 import {Container, Col, Row} from "react-bootstrap";
-import {removeFromParty, selectPokemon} from "../lib/helpers";
+import {removeFromParty, selectPokemon} from "../../lib/helpers";
 
-function PartyList({party, setParty, selectedPokemon, setSelectedPokemon}) {
+function PartyList({
+                       party,
+                       setParty,
+                       selectedPokemon,
+                       setSelectedPokemon
+}) {
 
     return (
         <>
@@ -38,12 +43,12 @@ function PartyList({party, setParty, selectedPokemon, setSelectedPokemon}) {
                          md={6}
                          className="mb-3 text-center position-relative"
                          style={{zIndex: 2}}
-                         onClick={(e) => selectPokemon(pokemon, i, selectedPokemon, setSelectedPokemon, e)}>
+                         onClick={(e) => selectPokemon(party, i, selectedPokemon, setSelectedPokemon, e)}>
 
                         <Container className="position-relative"
                                    style={{
                             width: "100%",
-                            border: "5px solid #3b433d",
+                            border: pokemon.selected ? "5px solid #c51518" : "5px solid #3b433d",
                             borderRadius: "10%",
                             boxShadow: "inset 0px -10px 0px 0px rgba(0, 0, 0, 0.2)," +
                                 " inset 0px -10px 0px 3px rgba(0, 0, 0, 0.2)",
@@ -63,14 +68,14 @@ function PartyList({party, setParty, selectedPokemon, setSelectedPokemon}) {
                                     fontSize: "12px",
                                     fontWeight: "bold",
                                 }}
-                                onClick={(e) => removeFromParty(i, party, setParty, selectedPokemon, setSelectedPokemon, e)}>
+                                onClick={(e) => removeFromParty(party, i, setParty, selectedPokemon, setSelectedPokemon, e)}>
                                 x
                             </Container>
                             <img style={{
                                 width: "80%",
                             }}
-                                 src={pokemon.sprites["front_default"]}
-                                 alt={pokemon.name}/>
+                                 src={pokemon.pokemonAPI.sprites["front_default"]}
+                                 alt={pokemon.pokemonAPI.name}/>
                         </Container>
                     </Col>
                 )) : null}

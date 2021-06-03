@@ -1,63 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {Col, Row} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Col, Row, Form} from "react-bootstrap";
 import MoveList from "./MoveList";
-import PartyList from "./PartyList";
-import EdgeShadows from "../lib/EdgeShadows";
-import pokeball from "../assets/img/pokeball.png"
-import pokeballGIF from "../assets/img/GenerousTimelyBrontosaurus-max-1mb.gif"
-import axios from "axios";
+import PartyList from "../general/PartyList";
+import EdgeShadows from "../../lib/EdgeShadows";
+import pokeball from "../../assets/img/pokeball.png"
+import pokeballGIF from "../../assets/img/GenerousTimelyBrontosaurus-max-1mb.gif"
 import StatsSummary from "./StatsSummary";
+import {assignLevel} from "../../lib/helpers";
 
 function PartyPage({
                        party,
                        setParty,
                        selectedPokemon,
-                       setSelectedPokemon,
-                       partyMoveSets,
-                       setPartyMoveSets,
-                       partyAbilities,
-                       setPartyAbilities
+                       setSelectedPokemon
                    }) {
-    const [partyStats, setPartyStats] = useState([])
-    const [abilityList, setAbilityList] = useState([])
-
-    // For stat calculation
-    const level = 100
-    const nature = 1
-    const IV = 0
-    const EV = 0
-
-    // Set each stat of each pokemon within party
-    useEffect(() => {
-        let tempPartyStats = []
-        let tempStat
-        party.forEach((pokemon, i) => {
-            tempPartyStats[i] = pokemon.stats.map(stat => {
-                // Stats calculation
-                if (stat.stat.name === "hp") {
-                    tempStat = (((2 * stat["base_stat"] + IV + (EV / 4)) * level) / 100) + level + 10
-                } else {
-                    tempStat = ((((2 * stat["base_stat"] + IV + (EV / 4)) * level) / 100) + 5) * nature
-                }
-                return {name: stat.stat.name, stat: tempStat}
-
-            })
-        })
-        setPartyStats(tempPartyStats)
-    }, [party])
-
-    // Call ability APIs to store in list
-    useEffect(() => {
-        if(selectedPokemon.length > 0) {
-            let abilityListPromiseArrays = selectedPokemon[0].abilities.map(ability => (
-                axios.get(ability.ability.url)
-            ))
-            Promise.all(abilityListPromiseArrays).then(response => {
-                let temp = response.map(ability => ability.data)
-                setAbilityList(temp)
-            });
-        }
-    },[selectedPokemon])
 
     return (
         <>
@@ -70,12 +26,7 @@ function PartyPage({
             }}>
                 {/* Stats Summary */}
                 <Col md={3} className="d-inline-block px-0 position-relative">
-                    <StatsSummary partyStats={partyStats}
-                                  selectedPokemon={selectedPokemon}
-                                  partyAbilities={partyAbilities}
-                                  setPartyAbilities={setPartyAbilities}
-                                  abilityList={abilityList}
-                                  />
+                    <StatsSummary party={party} setParty={setParty} selectedPokemon={selectedPokemon}/>
 
                 </Col>
                 {/*  Pokemon Image & Skill */}
@@ -136,23 +87,45 @@ function PartyPage({
                                      className="my-1 mr-1"
                                      style={{width: "40px"}}
                                 />
-                                {selectedPokemon.length > 0
-                                    ? <span className="pt-3 my-0">{selectedPokemon[0].name.toUpperCase()}</span> : null}
+                                {(party[selectedPokemon] && party[selectedPokemon].pokemonAPI) ?
+                                    <span
+                                        className="pt-3 my-0">{party[selectedPokemon].pokemonAPI.name.toUpperCase()}</span> : null}
                             </Row>
                             {/* Level Row */}
                             <Row className="ml-2 mt-1" style={{width: "100%", color: "#3c4041"}}>
-                                Lv.100
+                                {(party[selectedPokemon] && party[selectedPokemon].level) ?
+                                    <>
+                                        <Col>
+                                            Lv.{party[selectedPokemon].level}
+                                        </Col>
+                                        <Col className="my-auto">
+                                            <Form>
+                                                <Form.Group controlId="formBasicRange" className="ml-2 my-0">
+                                                    <Form.Control value={party[selectedPokemon].level}
+                                                                  type="range"
+                                                                  min={1}
+                                                                  step={1}
+                                                                  onChange={(e) => {
+                                                                      assignLevel(e.target.value, party, setParty, selectedPokemon)
+                                                                  }}
+                                                    />
+                                                </Form.Group>
+                                            </Form>
+                                        </Col>
+                                    </> : null
+                                }
                             </Row>
                         </Col>
                     </Row>
                     {/* Artwork */}
                     <Row className="mt-5"
-                        style={{height: "50%"}}>
-                        {selectedPokemon.length > 0 ?
-                            <img src={selectedPokemon[0].sprites.other["official-artwork"]["front_default"]}
-                                 alt={selectedPokemon[0].name}
-                                 className="mx-auto"
-                                 style={{width: "80%"}}
+                         style={{height: "50%"}}>
+                        {(party[selectedPokemon] && party[selectedPokemon].pokemonAPI) ?
+                            <img
+                                src={party[selectedPokemon].pokemonAPI.sprites.other["official-artwork"]["front_default"]}
+                                alt={party[selectedPokemon].pokemonAPI.name}
+                                className="mx-auto"
+                                style={{ width: "80%"}}
                             />
                             : <img src={pokeballGIF} className="m-auto" alt="loading"/>}
                     </Row>
@@ -200,10 +173,9 @@ function PartyPage({
                     {/*    </Col>*/}
                     {/*</Row>*/}
                 </Col>
-                {/* Move List */}
-                <MoveList selectedPokemon={selectedPokemon} party={party} partyMoveSets={partyMoveSets}
-                          setPartyMoveSets={setPartyMoveSets}/>
-                {/* Party List */}
+                {/*Move List */}
+                <MoveList selectedPokemon={selectedPokemon} party={party} setParty={setParty}/>
+                {/*Party List */}
                 <Col md={3} className="px-0">
                     <PartyList party={party}
                                setParty={setParty}

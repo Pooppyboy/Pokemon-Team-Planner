@@ -1,17 +1,16 @@
-import React, {useEffect} from 'react';
-import axios from "axios";
+import React from 'react';
 import {Navbar, Nav, Image, Col} from "react-bootstrap";
 import {NavLink} from "react-router-dom"
-import pokemonLogo from "../assets/img/pokemon_logo.png"
+import pokemonLogo from "../../assets/img/pokemon_logo.png";
 
 function Navigation({generations, setGenerations}) {
 
-    useEffect(() => {
-        axios.get("https://pokeapi.co/api/v2/generation/")
-            .then(generations => {
-                setGenerations(generations.data.results)
-            })
-    })
+    // useEffect(() => {
+    //     axios.get("https://pokeapi.co/api/v2/generation/")
+    //         .then(generations => {
+    //             setGenerations(generations.data.results)
+    //         })
+    // })
 
     return (
         <Navbar bg="light" variant="light" expand="lg" className="py-0" style={{
