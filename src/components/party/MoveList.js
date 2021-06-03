@@ -1,5 +1,5 @@
-import React from 'react';
-import {Col, Container, Row, Dropdown, DropdownButton} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Col, Container, Row, Button, Modal} from "react-bootstrap";
 import {assignMove} from "../../lib/helpers";
 
 function MoveList({
@@ -7,6 +7,16 @@ function MoveList({
                       party,
                       setParty
                   }) {
+    const [show, setShow] = useState(false);
+    const [moveIndex, setMoveIndex] = useState();
+
+    const handleClose = () => {
+        setShow(false)
+    };
+    const handleShow = (i) => {
+        setShow(true);
+        setMoveIndex(i)
+    }
 
     return (
         <Col md={3}
@@ -74,27 +84,17 @@ function MoveList({
                                 </Col>
                                 {/* Move Selector*/}
                                 <Col md={2} style={{height: "100%"}}>
-                                    <DropdownButton
-                                        menuAlign="right"
-                                        title=""
-                                        variant="secondary"
-                                        size="sm"
-                                        id="dropdown-menu-align-right"
-                                        className="mt-1"
-                                    >
-                                        {party[selectedPokemon].moveList ? party[selectedPokemon].moveList.map((move, j) => (
-                                            <Dropdown.Item eventKey={j + 1}
-                                                           key={j + ":" + move.name}
-                                                           onSelect={() => {
-                                                               assignMove(move, i, party, setParty, selectedPokemon)
-                                                           }}
-                                            >
-                                                {party[selectedPokemon].moveList ? move.names.map(moveName => (
-                                                    (moveName.language.name === "en") ? moveName.name : null
-                                                )) : null}
-                                            </Dropdown.Item>
-                                        )) : null}
-                                    </DropdownButton>
+
+                                    <button
+                                        className="mt-2"
+                                        style={{
+                                        backgroundColor: "lightgray",
+                                        border: "3px solid gray",
+                                        borderRadius: "5px",
+                                    }}
+                                            onClick={() => handleShow(i)}>
+                                        ^
+                                    </button>
                                 </Col>
                             </Row>
                             <Row style={{
@@ -148,6 +148,38 @@ function MoveList({
                     </Row>
                 )) : null}
             </Container>
+            <Modal show={show} onHide={handleClose} size="xl">
+                <Modal.Header closeButton>
+                    <Modal.Title>Move List</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Row>
+                        {party[selectedPokemon] && party[selectedPokemon].moveList ? party[selectedPokemon].moveList.map((move, j) => (
+                            <button className={`mx-1 my-1 ${move.type.name}1`}
+                                    key={j + ":" + move.name}
+                                    style={{
+                                        borderStyle: "solid",
+                                        borderWidth: "3px",
+                                        borderRadius: "5px",
+                                    }}
+                                    onClick={(e) => {
+                                        assignMove(move, moveIndex, party, setParty, selectedPokemon)
+                                        handleClose()
+                                    }}
+                            >
+                                {party[selectedPokemon].moveList ? move.names.map(moveName => (
+                                    (moveName.language.name === "en") ? moveName.name : null
+                                )) : null}
+                            </button>
+                        )) : null}
+                    </Row>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Col>
     );
 }

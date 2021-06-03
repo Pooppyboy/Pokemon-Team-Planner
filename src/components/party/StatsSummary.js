@@ -135,30 +135,32 @@ function StatsSummary({
                              style={{
                                  backgroundColor: "#c8d1d8",
                              }}>
-                            <DropdownButton
-                                menuAlign="right"
-                                title=""
-                                variant="secondary"
-                                size="sm"
-                                id="dropdown-menu-align-right"
-                                className="mt-1"
-                            >
-                                {(
-                                    party[selectedPokemon] &&
-                                    party[selectedPokemon].abilityList &&
-                                    party[selectedPokemon].abilityList.length > 0
-                                ) ? party[selectedPokemon].abilityList.map((ability, i) => (
-                                    <Dropdown.Item eventKey={i + 1}
-                                                   key={i + ":" + ability.name}
-                                                   onSelect={() => {
-                                                       assignAbility(ability, party, setParty, selectedPokemon)
-                                                   }}>
-                                        {party[selectedPokemon].abilityList.length > 0 ? ability.names.map(abilityName => (
-                                            (abilityName.language.name === "en") ? abilityName.name : null
-                                        )) : null}
-                                    </Dropdown.Item>
-                                )) : null}
-                            </DropdownButton>
+                            {(
+                                party[selectedPokemon] &&
+                                party[selectedPokemon].abilityList &&
+                                party[selectedPokemon].abilityList.length > 0) ?
+                                <DropdownButton
+                                    menuAlign="right"
+                                    title=""
+                                    variant="secondary"
+                                    size="sm"
+                                    id="dropdown-menu-align-right"
+                                    className="mt-1"
+                                >
+
+                                    {party[selectedPokemon].abilityList.map((ability, i) => (
+                                        <Dropdown.Item eventKey={i + 1}
+                                                       key={i + ":" + ability.name}
+                                                       onSelect={() => {
+                                                           assignAbility(ability, party, setParty, selectedPokemon)
+                                                       }}>
+                                            {party[selectedPokemon].abilityList.length > 0 ? ability.names.map(abilityName => (
+                                                (abilityName.language.name === "en") ? abilityName.name : null
+                                            )) : null}
+                                        </Dropdown.Item>
+                                    ))}
+                                </DropdownButton>
+                                : null}
                         </Col>
                     </Row>
                     <Row className="mx-auto my-auto px-3"
