@@ -65,7 +65,9 @@ function App() {
                 axios.get(moves.move.url)
             ))
             Promise.all(moveListPromiseArrays).then(response => {
-                tempParty[i].moveList = response.map(move => move.data)
+                tempParty[i].moveList = response.map(move => move.data).sort((a, b) => {
+                    return a.type.name.localeCompare(b.type.name)
+                })
                 if (active) setParty(tempParty)
 
             });
