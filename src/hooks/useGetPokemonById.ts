@@ -1,6 +1,6 @@
-import { Pokemon, PokemonClient } from "pokenode-ts";
-import { useQuery } from "react-query";
-import { QUERY_KEYS } from "../utils/constants";
+import { Pokemon, PokemonClient } from 'pokenode-ts';
+import { useQuery } from 'react-query';
+import { QUERY_KEYS } from '../utils/constants';
 
 async function getPokemonById(pokemonId: number) {
   const api = new PokemonClient();

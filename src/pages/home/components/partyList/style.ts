@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledDiv = styled.div`
-display: flex;
-justify-content: center;
-gap: 1rem;
-`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+`;

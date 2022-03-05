@@ -1,6 +1,6 @@
-import React from "react";
-import { StyledDiv } from "./style";
-import { GridColNumber } from "../../../utils/typings";
+import React from 'react';
+import { StyledDiv } from './style';
+import { GridColNumber } from '../../../utils/typings';
 
 type Props = {
   col?: GridColNumber;

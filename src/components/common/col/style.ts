@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { GridColNumber } from "../../../utils/typings";
+import React from 'react';
+import styled from 'styled-components';
+import { GridColNumber } from '../../../utils/typings';
 
 type StyledProps = {
   col: GridColNumber;
@@ -15,20 +15,20 @@ export const StyledDiv = styled.div<StyledProps>`
 
   margin-left: ${({ offset }) => {
     if (offset) {
-      return (offset - 1) * ((1 / 12) * 100) + "%";
+      return (offset - 1) * ((1 / 12) * 100) + '%';
     }
-    return "";
+    return '';
   }};
 
   @media screen and (min-width: 769px) {
     width: ${({ col }) => {
-      return (col / 12) * 100 + "%";
+      return (col / 12) * 100 + '%';
     }};
     flex: ${({ col }) => {
       if (col > 1) {
-        return "none";
+        return 'none';
       }
-      return "1 1 0";
+      return '1 1 0';
     }};
   }
 `;

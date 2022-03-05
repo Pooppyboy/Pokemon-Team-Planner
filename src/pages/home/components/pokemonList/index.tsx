@@ -1,7 +1,7 @@
-import React from "react";
-import { maxPokemonCount } from "../../../../utils/constants";
-import { StyledDiv, StyledWrapper } from "./style";
-import PokemonIcon from "../pokemonIcon";
+import React from 'react';
+import { maxPokemonCount } from '../../../../utils/constants';
+import { StyledDiv, StyledWrapper } from './style';
+import PokemonIcon from '../pokemonIcon';
 
 function PokemonList() {
   const pokemonIdArray = Array.from(Array(maxPokemonCount).keys());

@@ -1,7 +1,7 @@
-import React from "react";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import PokemonWrapper from "./pokemonWrapper";
-import { StyledDiv } from "./style";
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import PokemonWrapper from './pokemonWrapper';
+import { StyledDiv } from './style';
 
 function PartyList() {
   const party = useAppSelector((state) => state.party);

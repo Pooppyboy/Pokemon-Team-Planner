@@ -1,6 +1,6 @@
-import React from "react";
-import pokeballLoader from "../../../assets/img/GenerousTimelyBrontosaurus-max-1mb.gif";
-import { StyledSpan } from './style'
+import React from 'react';
+import pokeballLoader from '../../../assets/img/GenerousTimelyBrontosaurus-max-1mb.gif';
+import { StyledSpan } from './style';
 
 export type Props = {
   height?: number;

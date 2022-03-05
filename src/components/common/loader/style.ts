@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Props } from "./";
+import styled from 'styled-components';
+import { Props } from './';
 
 export const StyledSpan = styled.div<Props>`
   display: inline-flex;

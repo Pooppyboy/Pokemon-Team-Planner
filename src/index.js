@@ -1,11 +1,11 @@
-import React from "react";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { ThemeProvider } from "styled-components";
-import { Theme } from "./styles/theme";
-import { render } from "react-dom";
-import { Provider } from "react-redux";
-import store from './store/store'
+import React from 'react';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { ThemeProvider } from 'styled-components';
+import { Theme } from './styles/theme';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 render(
   <React.StrictMode>
@@ -15,7 +15,7 @@ render(
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

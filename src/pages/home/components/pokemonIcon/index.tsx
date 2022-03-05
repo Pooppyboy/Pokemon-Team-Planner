@@ -1,11 +1,11 @@
-import React from "react";
-import { addToParty } from "../../../../store/partySlice";
-import { useAppDispatch } from "../../../../store/hooks";
-import useGetPokemonById from "../../../../hooks/useGetPokemonById";
-import Loader from "../../../../components/common/loader";
-import { Ability, PokemonType, Stats } from "../../../../utils/typings";
-import { Pokemon } from "pokenode-ts";
-import { STATS } from "../../../../utils/constants";
+import React from 'react';
+import { addToParty } from '../../../../store/partySlice';
+import { useAppDispatch } from '../../../../store/hooks';
+import useGetPokemonById from '../../../../hooks/useGetPokemonById';
+import Loader from '../../../../components/common/loader';
+import { Ability, PokemonType, Stats } from '../../../../utils/typings';
+import { Pokemon } from 'pokenode-ts';
+import { STATS } from '../../../../utils/constants';
 
 type Props = {
   pokemonId: number;
@@ -23,8 +23,8 @@ function PokemonIcon({ pokemonId }: Props) {
       hp: 0,
       attack: 0,
       defense: 0,
-      "special-attack": 0,
-      "special-defense": 0,
+      'special-attack': 0,
+      'special-defense': 0,
       speed: 0,
     };
     pokemon.stats.forEach((stat) => {
@@ -37,11 +37,11 @@ function PokemonIcon({ pokemonId }: Props) {
     const abilities = pokemon.abilities.map((data) => {
       const abilityObj: Ability = {
         name: '',
-        description: ''
+        description: '',
       };
       abilityObj.name = data.ability.name;
       abilityObj.description = data.ability.url;
-      return abilityObj
+      return abilityObj;
     });
     return abilities;
   }
@@ -54,7 +54,7 @@ function PokemonIcon({ pokemonId }: Props) {
       baseStats: transformStatResponse(pokemon),
       types: pokemon.types.map((data) => data.type.name),
       abilities: transformAbilityResponse(pokemon),
-      moveSet: []
+      moveSet: [],
     };
   }
 
@@ -64,8 +64,8 @@ function PokemonIcon({ pokemonId }: Props) {
         <img
           onClick={() => dispatch(addToParty(partyPokemon))}
           src={
-            pokemon.sprites.versions["generation-viii"].icons[
-              "front_default"
+            pokemon.sprites.versions['generation-viii'].icons[
+              'front_default'
             ] as string
           }
           alt={pokemon.name}

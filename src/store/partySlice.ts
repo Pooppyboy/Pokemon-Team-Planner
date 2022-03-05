@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { PokemonType } from "../utils/typings";
-import { RootState } from "./store";
+import { createSlice } from '@reduxjs/toolkit';
+import { PokemonType } from '../utils/typings';
+import { RootState } from './store';
 
 const initialState: PokemonType[] = [];
 
 export const partySlice = createSlice({
-  name: "party",
+  name: 'party',
   initialState,
   reducers: {
     addToParty: (state, action) => {

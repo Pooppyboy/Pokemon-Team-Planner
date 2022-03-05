@@ -1,0 +1,7 @@
+# exclude everything
+/*
+
+# include paths
+!/src/
+!/bin/
+!/sql/

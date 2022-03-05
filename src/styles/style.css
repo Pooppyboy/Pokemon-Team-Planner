@@ -1,11 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 @font-face {
-  font-family: "Pokemon";
-  src: url("../assets/fonts/PokemonGb-RAeo.ttf") format("truetype");
+  font-family: 'Pokemon';
+  src: url('../assets/fonts/PokemonGb-RAeo.ttf') format('truetype');
 }
 
-*,::before,::after {
+*,
+::before,
+::after {
   box-sizing: inherit;
 }
 

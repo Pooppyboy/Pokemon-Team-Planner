@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./styles/style.css";
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './styles/style.css';
 // import Home from "./pages/Home";
-import Navigation from "./components/general/Navigation";
+import Navigation from './components/general/Navigation';
 // import PartyPage from "./components/party/PartyPage";
-import axios from "axios";
-import { calculateHpStat } from "./utils/helpers";
-import Home from "./pages/home";
-import { QueryClient, QueryClientProvider } from "react-query";
+import axios from 'axios';
+import { calculateHpStat } from './utils/helpers';
+import Home from './pages/home';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);

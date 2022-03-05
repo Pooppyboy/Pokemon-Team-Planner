@@ -1,7 +1,6 @@
-
 export function calculateHpStat(stat: any, pokemon: any) {
   Math.round(
-    ((2 * stat["base_stat"] +
+    ((2 * stat['base_stat'] +
       pokemon.IV[stat.stat.name] +
       pokemon.EV[stat.stat.name] / 4) *
       pokemon.level) /
